@@ -1,12 +1,8 @@
 import { Broker } from '@/application/interfaces/broker'
-import { KafkaHelper } from './kafka-helper'
+import { KafkaIntegration } from './kafka-integration'
 
 export class KafkaBroker implements Broker {
-  async send ({ topic, message }): Promise<any> {
-    await KafkaHelper.send({ topic, message })
-  }
-
-  async consume (topic: any, callback: any): Promise<void> {
-    await KafkaHelper.consume(topic,callback)
+  async send ({ topic, message }): Promise<void> {
+    await KafkaIntegration.send({ topic, message })
   }
 }

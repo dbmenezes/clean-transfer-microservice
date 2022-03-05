@@ -1,15 +1,14 @@
 import 'module-alias/register'
-import { KafkaHelper } from '@/infra/kafka'
 import mongoose from 'mongoose'
 import config from './config/config'
 import loggin from './helpers/loggin'
-import { MockLiquidationService } from '@/liquidationMock'
+import setupConsumers from '@/main/config/consumers'
+import { KafkaIntegration } from '@/infra/kafka'
 
 const main = (): void => {
-  MockLiquidationService.connect().then(res => console.log('MOCK CONNECTED')).catch(err => console.log(err))
-  KafkaHelper.connect()
-    .then(res => {
-      loggin.info('Server', 'Kafka connected')
+  KafkaIntegration.connect()
+    .then(async res => {
+      await setupConsumers()
     }).catch(err => {
       process.on('exit', () => console.log('EXITED WITH ERROR ', err))
     })

@@ -1,16 +1,32 @@
-import { TransferStatus } from '@/domain/models/transfer-status'
+import { BrokerTopics } from '@/domain/topics/broker-topics'
 import { ApproveTransfer } from '@/domain/usecases/approve-transfer'
+import { KafkaIntegration } from '@/infra/kafka'
 
 export class LiquidateUpdatedConsumer {
   constructor (
     private readonly approveTransfer: ApproveTransfer
   ) {}
 
-  async handle (message: any): Promise<void> {
-    switch (message.status) {
-      case (TransferStatus.APPROVED): {
-        await this.approveTransfer.approve(message)
+  async registerConsumer (): Promise<void> {
+    const consumer = await KafkaIntegration.createConsumer(
+      {
+        topic: BrokerTopics.LIQUIDATE_UPDATED,
+        groupId: 'updated-group-id'
       }
-    }
+    )
+
+    await consumer.run({
+      eachMessage: async (callback: any): Promise<void> => {
+        const { message } = callback
+
+        try {
+          const updatedMessage = JSON.parse(message.value.toString())
+          console.log('RECIEVED UPDATED MESSAGE',updatedMessage)
+          await this.approveTransfer.approve(updatedMessage)
+        } catch (error) {
+          console.log('ERRO CONSUMER',error)
+        }
+      }
+    })
   }
 }
