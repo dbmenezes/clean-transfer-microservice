@@ -8,23 +8,29 @@ import Transfer from './models/transfer'
 export class TransferMongoRepository implements TransferRepository {
   async add (createTranfer: CreateTransferModel): Promise<string> {
     const { originAccountId,destinationAccountId, dueDate } = createTranfer
-    const correlationId = uuidv4()
+    const internalId = uuidv4()
 
     const transfer = new Transfer({
       _id: new mongoose.Types.ObjectId(),
       originAccountId,
       destinationAccountId,
       dueDate,
-      correlationId,
+      internalId,
       status: TransferStatus.CREATED
     })
 
     await transfer.save()
 
-    return correlationId
+    return internalId
   }
 
   async find (): Promise<any> {
     return await Transfer.find()
+  }
+
+  async update (internalId,data): Promise<string> {
+    await Transfer.updateOne({ internalId },data)
+
+    return 'Transfer updated'
   }
 }

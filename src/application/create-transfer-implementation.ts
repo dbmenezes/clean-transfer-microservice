@@ -1,5 +1,6 @@
 import { CreateTransferModel } from '@/domain/models/create-transfer-model'
 import { TransferStatus } from '@/domain/models/transfer-status'
+import { BrokerTopics } from '@/domain/topics/broker-topics'
 import { CreateTransfer } from '@/domain/usecases/create-transfer'
 import { Date } from '@/validation/interfaces/date'
 import { Broker } from './interfaces/broker'
@@ -14,11 +15,9 @@ export class CreateTransferImplementation implements CreateTransfer {
 
   async create (createTransfer: CreateTransferModel): Promise<string> {
     const dueDate = createTransfer.dueDate ? createTransfer.dueDate : this.date.now()
-
     const id = await this.repository.add({ ...createTransfer,status: TransferStatus.CREATED,dueDate })
-
     await this.broker.send({
-      topic: 'LIQUIDATE_CREATED',
+      topic: BrokerTopics.LIQUIDATE_CREATED,
       message: {
         externalId: id,
         amount: createTransfer.amount,
