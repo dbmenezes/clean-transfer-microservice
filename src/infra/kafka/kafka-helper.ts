@@ -1,6 +1,6 @@
 import config from '@/main/config/config'
 import loggin from '@/main/helpers/loggin'
-import { Kafka } from 'kafkajs'
+import { Kafka ,logLevel } from 'kafkajs'
 
 export const KafkaHelper = {
   producer: null,
@@ -10,15 +10,18 @@ export const KafkaHelper = {
   async connect (): Promise<void> {
     const clientId = config.kafka.clientId
     const brokers = config.kafka.brokers
-    this.kafka = new Kafka({ clientId,brokers })
+    this.kafka = new Kafka({ clientId,brokers ,logLevel: logLevel.DEBUG })
     this.producer = this.kafka.producer()
+    this.producer.connect()
   },
 
   async send ({ topic,message }): Promise<void> {
+    const stringMsg = JSON.stringify(message)
+    console.log('string', stringMsg)
     try {
       await this.producer.send({
         topic,
-        message
+        messages: [{ value: stringMsg }]
       })
     } catch (err) {
       loggin.error('Server','error with kafka ', err)
@@ -35,4 +38,5 @@ export const KafkaHelper = {
       }
     })
   }
+
 }

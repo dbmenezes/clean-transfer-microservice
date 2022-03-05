@@ -18,6 +18,7 @@ export class CreateTransferController implements Controller {
       const result = await this.createTransfer.create(request)
       return ok(`Transfer with ID ${result} successfuly created`)
     } catch (err) {
+      console.log('err',err)
       return serverError(err)
     }
   }

@@ -1,6 +1,6 @@
 export type CreateTransferModel = {
   originAccountId: string
   destinationAccountId: string
-  dueDate?: Date
+  dueDate?: string
   amount: string
 }

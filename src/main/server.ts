@@ -3,8 +3,10 @@ import { KafkaHelper } from '@/infra/kafka'
 import mongoose from 'mongoose'
 import config from './config/config'
 import loggin from './helpers/loggin'
+import { MockLiquidationService } from '@/liquidationMock'
 
 const main = (): void => {
+  MockLiquidationService.connect().then(res => console.log('MOCK CONNECTED')).catch(err => console.log(err))
   KafkaHelper.connect()
     .then(res => {
       loggin.info('Server', 'Kafka connected')
