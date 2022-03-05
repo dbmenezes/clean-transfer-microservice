@@ -28,8 +28,8 @@ export class TransferMongoRepository implements TransferRepository {
     return await Transfer.find()
   }
 
-  async update (internalId,data): Promise<string> {
-    await Transfer.updateOne({ internalId },data)
+  async update (filter,query): Promise<string> {
+    await Transfer.findOneAndUpdate(filter,query)
 
     return 'Transfer updated'
   }

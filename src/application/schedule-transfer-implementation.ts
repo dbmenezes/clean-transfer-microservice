@@ -1,12 +1,12 @@
-import { ApproveTransfer } from '@/domain/usecases/approve-transfer'
+import { ScheduleTransfer } from '@/domain/usecases/schedule-transfer'
 import { TransferRepository } from './interfaces/transfer-repository'
 
-export class ApproveTransferImplementation implements ApproveTransfer {
+export class ScheduleTransferImplementation implements ScheduleTransfer {
   constructor (
     private readonly repository: TransferRepository
   ) {}
 
-  async approve (createTransfer: any): Promise<string> {
+  async schedule (createTransfer: any): Promise<string> {
     const { externalId,internalId,status } = JSON.parse(createTransfer)
     const result = await this.repository.update({ internalId: internalId },{ status: status, externalId: externalId })
     return result

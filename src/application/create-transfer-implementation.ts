@@ -19,7 +19,7 @@ export class CreateTransferImplementation implements CreateTransfer {
     await this.broker.send({
       topic: BrokerTopics.LIQUIDATE_CREATED,
       message: {
-        externalId: id,
+        id,
         amount: createTransfer.amount,
         dueDate
       }
