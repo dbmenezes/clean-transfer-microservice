@@ -14,9 +14,10 @@ export class CreateTransferController implements Controller {
   async handle (request: CreateTransferModel): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request)
+      console.log('ValidateError',error)
       if (error) return badRequest(error)
       const result = await this.createTransfer.create(request)
-      return ok(`Transfer with ID ${result} successfuly created`)
+      return ok({ message: `Transfer with ID ${result} successfuly created` })
     } catch (err) {
       console.log('err',err)
       return serverError(err)

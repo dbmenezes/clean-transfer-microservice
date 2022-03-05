@@ -1,5 +1,5 @@
 import { KafkaIntegration } from '@/infra/kafka'
-import { DateHelper } from '@/infra/utils/dayjs'
+import { DateHelper } from '@/infra/utils/datefns'
 import { MockConsumer } from '@/presentation/consumers/mock-consumer'
 import { makeUpdateTransferConsumer } from '../factories/consumers/update-transfer-consumer-factory'
 

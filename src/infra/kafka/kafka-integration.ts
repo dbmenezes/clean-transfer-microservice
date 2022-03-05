@@ -1,5 +1,5 @@
 import config from '@/main/config/config'
-import { CompressionTypes, Consumer, Kafka ,logLevel, Producer } from 'kafkajs'
+import { CompressionTypes, Consumer, Kafka , Producer } from 'kafkajs'
 
 export interface IKafkaConsumer {
   groupId: string
@@ -17,7 +17,6 @@ export const KafkaIntegration = {
     this.kafka = new Kafka({
       clientId,
       brokers ,
-      logLevel: logLevel.DEBUG ,
       retry: {
         initialRetryTime: Number(process.env.KAFKA_INITIAL_RETRY_TIME || '300'),
         retries: Number(process.env.KAFKA_RETRIES || '10')

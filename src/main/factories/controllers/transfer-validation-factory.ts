@@ -1,6 +1,6 @@
 import { ValidationComposite, RequiredFieldValidation, DueDateValidation } from '@/validation'
 import { Validation } from '@/presentation/interfaces'
-import { DateHelper } from '@/infra/utils/dayjs'
+import { DateHelper } from '@/infra/utils/datefns'
 
 export const makeAddTransferValidation = (): ValidationComposite => {
   const dateHelper = new DateHelper()

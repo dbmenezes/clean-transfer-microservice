@@ -7,7 +7,7 @@ export class ApproveTransferImplementation implements ApproveTransfer {
   ) {}
 
   async approve (createTransfer: any): Promise<string> {
-    const { externalId,internalId,status } = JSON.parse(createTransfer)
+    const { externalId,internalId,status } = createTransfer
     const result = await this.repository.update({ internalId: internalId },{ status: status, externalId: externalId })
     return result
   }

@@ -15,13 +15,13 @@ export class MockConsumer {
       eachMessage: async (callback: any): Promise<void> => {
         const { message } = callback
         const parsedMessage = JSON.parse(message.value.toString())
-        const now = date.now()
         let status = null
-        if (date.isBefore(now,parsedMessage.dueDate)) {
+        if (date.isBefore(parsedMessage.dueDate)) {
           status = TransferStatus.SCHEDULED
         } else {
           const statusArray = [TransferStatus.APPROVED,TransferStatus.REJECTED]
           const randomIdx = Math.floor(Math.random() * statusArray.length)
+          console.log('RANDOMIDX',randomIdx)
           status = statusArray[randomIdx]
         }
         const payload = {

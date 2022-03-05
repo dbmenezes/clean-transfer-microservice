@@ -25,7 +25,7 @@ export class LiquidateUpdatedConsumer {
         const { message } = callback
 
         try {
-          const updatedMessage = JSON.parse(message.value.toString())
+          const updatedMessage = JSON.parse(JSON.parse(message.value.toString()))
           switch (updatedMessage.status) {
             case (TransferStatus.APPROVED):
               await this.approveTransfer.approve(updatedMessage)

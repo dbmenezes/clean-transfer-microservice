@@ -2,7 +2,7 @@ import { CreateTransferImplementation } from '@/application/create-transfer-impl
 import { CreateTransfer } from '@/domain/usecases/create-transfer'
 import { TransferMongoRepository } from '@/infra/db/mongodb/transfer-mongo-repository'
 import { KafkaBroker } from '@/infra/kafka/kafka-broker'
-import { DateHelper } from '@/infra/utils/dayjs'
+import { DateHelper } from '@/infra/utils/datefns'
 
 export const makeCreateFactory = (): CreateTransfer => {
   const broker = new KafkaBroker()

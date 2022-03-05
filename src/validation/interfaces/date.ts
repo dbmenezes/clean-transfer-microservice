@@ -1,5 +1,6 @@
 
 export interface Date {
   now: () => string
-  isBefore: (date1,date2) => boolean
+  isBefore: (targetDate) => boolean
+  isValidDate: (targetDate) => boolean
 }
