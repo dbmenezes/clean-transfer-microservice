@@ -3,22 +3,28 @@ import { CreateTransfer } from '@/domain/usecases/create-transfer'
 import { makeAddTransferValidation } from '@/main/factories/controllers/transfer-validation-factory'
 import { CreateTransferController } from '@/presentation/controllers'
 import { InvalidParamError, MissingParamError } from '@/presentation/errors'
-import { badRequest, ok } from '@/presentation/helpers'
+import { badRequest, ok, serverError } from '@/presentation/helpers'
 import { subDays ,format } from 'date-fns'
 
-const createTransferMock = (): CreateTransfer => {
+const createTransferMock = (error?: boolean): CreateTransfer => {
   class CreateTransferStub implements CreateTransfer {
     async create (object: CreateTransferModel): Promise<string> {
       return Promise.resolve('f571461e-edcb-4f11-8041-b78421c3f0b9')
     }
   }
-  return new CreateTransferStub()
+  class CreateTransferStubWithError implements CreateTransfer {
+    async create (object: CreateTransferModel): Promise<string> {
+      throw Error('error')
+    }
+  }
+  if (error) return new CreateTransferStubWithError()
+  else return new CreateTransferStub()
 }
 
-const makeSut = (): CreateTransferController => {
+const makeSut = (error?): CreateTransferController => {
   const validations = makeAddTransferValidation()
   console.log('VALIDATIONS',validations)
-  const sut = new CreateTransferController(makeAddTransferValidation(),createTransferMock())
+  const sut = new CreateTransferController(makeAddTransferValidation(),createTransferMock(error))
   return sut
 }
 
@@ -124,5 +130,18 @@ describe('Create Transfer controller tests', () => {
     } as any
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('Due Date', 'is outdated')))
+  })
+  test('should return 500 if error is thrown on usecase', async () => {
+    const
+    const sut = makeSut(true)
+    const httpRequest = {
+      originAccountId: '1',
+      destinationAccountId: '2',
+      amount: 1121,
+      dueDate: format(subDays(new Date(),5),'dd/MM/yyyy HH:MM')
+
+    } as any
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(serverError(new Error('error')))
   })
 })
