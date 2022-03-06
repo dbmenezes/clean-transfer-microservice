@@ -9,7 +9,7 @@ export class DueDateValidation implements Validation {
   ) {}
 
   validate (input: any): Error {
-    if (!this.dateHelper.isValidDate(input[this.fieldName])) return new InvalidParamError('Invalid date', ' Date should be in format dd/MM/yyyy HH:mm')
+    if (input[this.fieldName] && !this.dateHelper.isValidDate(input[this.fieldName])) return new InvalidParamError('Invalid date', ' Date should be in format dd/MM/yyyy HH:mm')
     if (this.dateHelper.isBefore(input[this.fieldName])) return new InvalidParamError('Due Date', 'is outdated')
   }
 }

@@ -4,7 +4,7 @@ export type Transfer = {
   originAccountId: string
   destinationAccountId: string
   dueDate?: string
-  amount: string
+  amount: number
   status: TransferStatus
   externalId?: string
   internalId?: string
