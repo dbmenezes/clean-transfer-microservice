@@ -6,4 +6,6 @@ export type Transfer = {
   dueDate?: string
   amount: string
   status: TransferStatus
+  externalId?: string
+  internalId?: string
 }
