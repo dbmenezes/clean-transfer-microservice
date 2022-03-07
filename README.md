@@ -4,22 +4,22 @@
 ## Abordagem
 Mudei um pouco a abordagem para uma forma que acredito que fica melhor.
 Descrição: 
-O fluxo consiste dois microserviços , o de Transferência e o de Liquidação, o de transfêrencia tem uma porta de acesso externa ( API recebendo POST e GET ) , um PRODUCER para solicitar a liquidação e um CONSUMER para atualizar o status de uma transfência.
-O serviço de liquidação recebe a solicitação de liquidez por um consumer, realiza as operações e devolve uma resposta com status atualizado para o tópico de LIQUIDATE_UPDATED
-O serviço de transfência recebe o status atualizado pelo consumer LIQUIDATE_UPDATED, e atualiza a situação da transfência no banco de dados
-Toda logica do MOCK de liquidação está na classe mock-consumer.ts ( que basicamente recebe o pedido de liquidez, e responde o evento no topico LIQUIDATE_UPDATED com um status aleatorio)
+O fluxo consiste dois microserviços , o de Transferência e o de Liquidação, o de transfêrencia tem uma porta de acesso externa ( API recebendo POST e GET ) , um PRODUCER para solicitar a liquidação e um CONSUMER para atualizar o status de uma transfência.  
+O serviço de liquidação recebe a solicitação de liquidez por um consumer, realiza as operações e devolve uma resposta com status atualizado para o tópico de LIQUIDATE_UPDATED  
+O serviço de transfência recebe o status atualizado pelo consumer LIQUIDATE_UPDATED, e atualiza a situação da transfência no banco de dados  
+Toda logica do MOCK de liquidação está na classe mock-consumer.ts ( que basicamente recebe o pedido de liquidez, e responde o evento no topico LIQUIDATE_UPDATED com um status aleatorio)  
 
 
 ## Arquitetura
 Optei por utilizar a arquitetura CLEAN, acredito que projetos com DOMÍNIO e regras de negócio sensíveis precisem de uma arquitetura mais robusta.
 A aplicação é composta por 6 camadas:
 
-Application- implementações das regras de negócio
-Domain- regras de negócio
-Infra- Componentes usados pelo sistema ( banco de daos, validações, file system,etc)
-Main - adatapers e composers
-presentation - visualização de dados, entrada de dados (controllers e adapters)
-validation- regras de negócio de validação
+- **Application**- implementações das regras de negócio  
+- **Domain**- regras de negócio  
+- **Infra**- Componentes usados pelo sistema ( banco de daos, validações, file system,etc)
+- **Main** - adatapers e composers
+- **Presentation** - visualização de dados, entrada de dados (controllers e adapters)
+- **Validation**- regras de negócio de validação
 
 Nessa arquitetura as camadas de Application, Domain e Validation estão completamente abstratas de qualquer biblioteca de terceiros, então independente de qualquer mudança, o CORE da aplicação poderá ser reutilizado para sempre.
 
@@ -51,8 +51,8 @@ Para rodar o projeto é necessário ter instalado
 
 Toda infra do projeto está configurada no docker-compose.yml, os comandos para rodar se encontram no script sh ( build.sh) para rodar bastar rodar ele com ./build.sh
 ou rodar os comandos
-npm run build
-docker-compose up
+**npm run build  **
+**docker-compose up  **
 
 a API de referencia estará rodando no endereço http://localhost:5050
 
