@@ -132,15 +132,13 @@ describe('Create Transfer controller tests', () => {
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('Due Date', 'is outdated')))
   })
   test('should return 500 if error is thrown on usecase', async () => {
-    const
     const sut = makeSut(true)
     const httpRequest = {
-      originAccountId: '1',
-      destinationAccountId: '2',
-      amount: 1121,
-      dueDate: format(subDays(new Date(),5),'dd/MM/yyyy HH:MM')
+      originAccountId: '2',
+      destinationAccountId: '1',
+      amount: 1000
 
-    } as any
+    }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error('error')))
   })
