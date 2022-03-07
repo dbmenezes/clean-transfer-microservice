@@ -2,8 +2,6 @@
 
 
 ## Abordagem
-Mudei um pouco a abordagem para uma forma que acredito que fica melhor.  
-### Descrição: 
 O fluxo consiste dois microserviços , o de Transferência e o de Liquidação, o de transfêrencia tem uma porta de acesso externa ( API recebendo POST e GET ) , um PRODUCER para solicitar a liquidação e um CONSUMER para atualizar o status de uma transfência.  
 O serviço de liquidação recebe a solicitação de liquidez por um consumer, realiza as operações e devolve uma resposta com status atualizado para o tópico de LIQUIDATE_UPDATED  
 O serviço de transfência recebe o status atualizado pelo consumer LIQUIDATE_UPDATED, e atualiza a situação da transfência no banco de dados  
