@@ -6,8 +6,8 @@ export class ScheduleTransferImplementation implements ScheduleTransfer {
     private readonly repository: TransferRepository
   ) {}
 
-  async schedule (createTransfer: any): Promise<string> {
-    const { externalId,internalId,status } = createTransfer
+  async schedule (payload: any): Promise<string> {
+    const { externalId,internalId,status } = payload
     const result = await this.repository.update({ internalId: internalId },{ status: status, externalId: externalId })
     return result
   }

@@ -16,18 +16,22 @@ export class MockConsumer {
         const { message } = callback
         const parsedMessage = JSON.parse(message.value.toString())
         let status = null
+        let expectedOn = null
         if (date.isBefore(parsedMessage.dueDate)) {
           status = TransferStatus.SCHEDULED
+          expectedOn = parsedMessage.dueDate
         } else {
           const statusArray = [TransferStatus.APPROVED,TransferStatus.REJECTED]
           const randomIdx = Math.floor(Math.random() * statusArray.length)
           console.log('RANDOMIDX',randomIdx)
           status = statusArray[randomIdx]
+          expectedOn = date.now()
         }
         const payload = {
           externalId: uuidv4(),
           internalId: parsedMessage.id,
-          status
+          status,
+          expectedOn
         }
 
         await broker.send({

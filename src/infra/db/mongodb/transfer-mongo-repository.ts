@@ -33,6 +33,8 @@ export class TransferMongoRepository implements TransferRepository {
   }
 
   async update (filter,query): Promise<string> {
+    console.log('UPDATE FILTER', filter)
+    console.log('UPDATE QUERY', query)
     await Transfer.findOneAndUpdate(filter,query)
 
     return 'Transfer updated'

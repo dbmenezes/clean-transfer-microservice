@@ -1,7 +1,7 @@
 import { format,parse,isBefore,isMatch } from 'date-fns'
 export class DateHelper {
   now (): string {
-    return format(new Date(), 'dd/MM/yyyy HH:MM')
+    return format(new Date(), 'dd/MM/yyyy HH:mm')
   }
 
   isBefore (targetDate): boolean {

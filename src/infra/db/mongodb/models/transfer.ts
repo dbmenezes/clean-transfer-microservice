@@ -9,7 +9,8 @@ const TransferSchema: Schema = new Schema(
     dueDate: { type: String, required: true } ,
     internalId: { type: String, required: true },
     status: { type: String, required: true },
-    externalId: { type: String, required: false }
+    externalId: { type: String, required: false },
+    expectedOn: { type: String , required: false }
   },
   {
     timestamps: true

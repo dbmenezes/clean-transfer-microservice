@@ -6,10 +6,9 @@ export class RejectTransferImplementation implements RejectTransfer {
     private readonly repository: TransferRepository
   ) {}
 
-  async reject (createTransfer: any): Promise<string> {
-    console.log('CREATE TRANSFER',JSON.stringify(createTransfer))
-    const { externalId,internalId,status } = createTransfer
-    const result = await this.repository.update({ internalId: internalId },{ status: status, externalId: externalId })
+  async reject (payload: any): Promise<string> {
+    const { externalId,internalId,status,expectedOn } = payload
+    const result = await this.repository.update({ internalId: internalId },{ status: status, externalId: externalId, expectedOn: expectedOn })
     return result
   }
 }

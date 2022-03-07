@@ -7,4 +7,5 @@ export default interface ITransfer extends Document {
   dueDate?: Date
   amount: string
   status: TransferStatus
+  expectedDate: string
 }

@@ -13,14 +13,14 @@ export class CreateTransferImplementation implements CreateTransfer {
     private readonly date: Date
   ) {}
 
-  async create (createTransfer: CreateTransferModel): Promise<string> {
-    const dueDate = createTransfer.dueDate ? createTransfer.dueDate : this.date.now()
-    const id = await this.repository.add({ ...createTransfer,status: TransferStatus.CREATED,dueDate })
+  async create (payload: CreateTransferModel): Promise<string> {
+    const dueDate = payload.dueDate ? payload.dueDate : this.date.now()
+    const id = await this.repository.add({ ...payload,status: TransferStatus.CREATED,dueDate })
     await this.broker.send({
       topic: BrokerTopics.LIQUIDATE_CREATED,
       message: {
         id,
-        amount: createTransfer.amount,
+        amount: payload.amount,
         dueDate
       }
 
