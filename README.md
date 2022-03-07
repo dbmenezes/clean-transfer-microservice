@@ -48,9 +48,9 @@ Para rodar o projeto é necessário ter instalado
 ### Rodando o projeto
 
 Toda infra do projeto está configurada no docker-compose.yml, os comandos para rodar se encontram no script sh ( build.sh) para rodar bastar rodar ele com ./build.sh
-ou rodar os comandos
-**npm run build  **
-**docker-compose up  **
+ou rodar os comandos  
+- **npm run build**  
+- **docker-compose up**  
 
 a API de referencia estará rodando no endereço http://localhost:5050
 
