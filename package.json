@@ -24,7 +24,9 @@
     "start": "node dist/main/server.js",
     "mock": "node dist/liquidationMock/index.js",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "build": "rimraf dist && tsc -p tsconfig-build.json"
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "test:ci": "npm run test -- --coverage",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "engines": {
     "node": "16.x"
