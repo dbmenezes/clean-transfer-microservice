@@ -28,9 +28,9 @@ Design patterns utilizados no projeto:
 - [x] Adapter
 - [x] Composite
 
-Todos casos de uso e controllers estão com Factorys, isolando a resposanbilidade para montar as dependencias em um único lugar e facilitando refatoramento no futuro.
-Adapter utilizado para abstrair dependencia de terceiros
-Composite utilizado para criar um composição de validações
+Todos casos de uso e controllers estão com Factorys, isolando a resposanbilidade para montar as dependencias em um único lugar e facilitando refatoramento no futuro.  
+Adapter utilizado para abstrair dependencia de terceiros  
+Composite foi utilizado para criar um composição de validações
 
 SOLID:
 classes e funções com responsabilidades únicas e definidas por négocio (CRIAR TRANSFERENCIA,VISUALIZAR TRANSFERENCIA,ATUALIZAR TRANSFERENCIA), inversões de dependencia garantidas com as abstrações.
