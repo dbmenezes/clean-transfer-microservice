@@ -26,7 +26,8 @@ Nessa arquitetura as camadas de Application, Domain e Validation estão completa
 Design patterns utilizados no projeto:
 - [x] Factory
 - [x] Adapter
-- [x] Composite
+- [x] Composite  
+- [x] Repository
 
 Todos casos de uso e controllers estão com Factorys, isolando a resposanbilidade para montar as dependencias em um único lugar e facilitando refatoramento no futuro.  
 Adapter utilizado para abstrair dependencia de terceiros  
